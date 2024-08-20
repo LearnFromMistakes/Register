@@ -49,3 +49,7 @@ h1{
 {
     border-color: red;
 }
+.input-group .error
+{
+    color: red;
+}
