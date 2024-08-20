@@ -5,8 +5,10 @@ const password = document.querySelector('#password');
 const cpassword = document.querySelector('#cpassword');
 
 form.addEventListener('submit' ,(e)=>{
-    e.preventDefault();
-    validateInput();
+    if(!validateInput())
+    {
+        e.preventDefault();
+    }
 })
 
 function validateInput()
@@ -15,9 +17,11 @@ function validateInput()
     const emailVal = email.value.trim();
     const passwordVal = password.value.trim();
     const cpasswordVal = cpassword.value.trim();
+    let success = true;
 
     if(usernameVal=== '')
     {
+        success=false;
         setError(username,'Username is required')
     }
     else
@@ -27,10 +31,12 @@ function validateInput()
 
     if(emailVal === '')
     {
+        success=false;
         setError(email,'Email is required')
     }
     else if (!validateEmail(emailVal))
     {
+        success=false;
         setError(email,'please enter valid email')
     }
     else
@@ -40,10 +46,12 @@ function validateInput()
 
     if(passwordVal=== '')
         {
+            success=false;
             setError(password,'Password is required')
         }
-        else if (passwordVal<8)
+        else if (passwordVal>8)
         {
+            success=false;
             setError(password,'Password must be atleast 8 character')
         }
         else{
@@ -52,15 +60,19 @@ function validateInput()
 
     if(cpasswordVal === '')
     {
+        success=false;
         setError(cpassword,'cpassword is required')
     }
     else if (cpasswordVal != passwordVal)
     {
+        success=false;
         setError(cpassword,'Password Must be same')
     }
     else{
         setSuccess(cpassword)
     }
+
+    return success;
 }
 
 function setError(element,message)
